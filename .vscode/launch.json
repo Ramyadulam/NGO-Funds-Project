@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Hardhat Node",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/blockchain/node_modules/hardhat/internal/cli/cli.js",
+            "args": ["node"],
+            "cwd": "${workspaceFolder}/blockchain",
+            "skipFiles": ["<node_internals>/**"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Deploy Contract",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/blockchain/node_modules/hardhat/internal/cli/cli.js",
+            "args": ["run", "scripts/deploy.js", "--network", "localhost"],
+            "cwd": "${workspaceFolder}/blockchain",
+            "skipFiles": ["<node_internals>/**"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Backend Server",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/index.js",
+            "cwd": "${workspaceFolder}/backend",
+            "skipFiles": ["<node_internals>/**"],
+            "console": "integratedTerminal"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full Stack",
+            "configurations": ["Hardhat Node", "Backend Server"],
+            "stopAll": true
+        }
+    ]
+}

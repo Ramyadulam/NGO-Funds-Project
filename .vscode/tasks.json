@@ -1,0 +1,90 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "1. Blockchain Node (Ganache)",
+            "type": "shell",
+            "command": "npm run start-node",
+            "options": {
+                "cwd": "${workspaceFolder}/blockchain"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^RPC Listening on.*"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": ".*RPC Listening on.*"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "services"
+            }
+        },
+        {
+            "label": "2. Deploy Smart Contracts",
+            "type": "shell",
+            "command": "npm run deploy:ganache",
+            "options": {
+                "cwd": "${workspaceFolder}/blockchain"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "group": "build"
+            }
+        },
+        {
+            "label": "3. Backend Server",
+            "type": "shell",
+            "command": "npm start",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "services"
+            }
+        },
+        {
+            "label": "4. Next.js Frontend",
+            "type": "shell",
+            "command": "npm run dev",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "services"
+            }
+        },
+        {
+            "label": "Start All Services",
+            "dependsOn": [
+                "1. Blockchain Node (Ganache)",
+                "3. Backend Server",
+                "4. Next.js Frontend"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

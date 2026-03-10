@@ -1,0 +1,71 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[solidity]": {
+        "editor.defaultFormatter": "JuanBlanco.solidity",
+        "editor.formatOnSave": true
+    },
+    "editor.formatOnSaveTimeout": 5000,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/.next": true,
+        "**/artifacts": true,
+        "**/cache": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/.next": true,
+        "**/artifacts": true,
+        "**/cache": true
+    },
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.lineHeight": 1.5,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js",
+        "*.tsx": "${capture}.css",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json"
+    },
+    "workbench.colorTheme": "Idx Dark Theme",
+    "workbench.iconTheme": "monospace-idx-file-icon-theme",
+    "extensions.recommendations": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "JuanBlanco.solidity",
+        "ms-vscode.extension-pack-for-java",
+        "ms-vscode-remote.remote-containers",
+        "GitHub.Copilot"
+    ],
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.formatOnSave": true
+    },
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--max-line-length=100"
+    ]
+}

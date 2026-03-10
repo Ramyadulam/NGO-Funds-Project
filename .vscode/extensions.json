@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "JuanBlanco.solidity",
+    "ms-dotnettools.csharp",
+    "ms-vscode.extension-pack-for-java",
+    "ms-vscode-remote.remote-containers",
+    "GitHub.Copilot",
+    "ms-vscode.makefile-tools",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "MongoDB.mongodb-vscode",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "ms-azuretools.vscode-docker",
+    "Postman.postman-for-vscode"
+  ]
+}

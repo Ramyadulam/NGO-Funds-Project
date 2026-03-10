@@ -1,0 +1,27 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js",
+    "deploy:ganache": "hardhat run scripts/deploy.js --network ganache",
+    "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
+    "node": "hardhat node",
+    "start-node": "npx ganache --server.port 7545 --chain.chainId 1337 --chain.networkId 1337"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "NGO Fund Management blockchain contracts",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "ganache": "^7.9.2",
+    "hardhat": "^2.19.4"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0"
+  }
+}

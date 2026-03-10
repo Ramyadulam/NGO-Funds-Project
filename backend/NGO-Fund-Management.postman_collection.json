@@ -1,0 +1,482 @@
+{
+    "info": {
+        "name": "NGO Fund Management API",
+        "description": "Complete API collection for NGO Fund Management System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:5000/api",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update User Details",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated@example.com\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/updatedetails",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "updatedetails"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "NGOs",
+            "item": [
+                {
+                    "name": "Get All NGOs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ngos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get NGOs by Category",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ngos?category=education",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos"
+                            ],
+                            "query": [
+                                {
+                                    "key": "category",
+                                    "value": "education"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Search NGOs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ngos?search=education",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos"
+                            ],
+                            "query": [
+                                {
+                                    "key": "search",
+                                    "value": "education"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Single NGO",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ngos/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "NGO_ID_HERE"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get NGO Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ngos/stats/overview",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos",
+                                "stats",
+                                "overview"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create NGO (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"New NGO\",\n  \"description\": \"Description of the NGO\",\n  \"category\": \"education\",\n  \"location\": \"Mumbai, India\",\n  \"targetAmount\": 100000,\n  \"image\": \"https://example.com/image.jpg\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/ngos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update NGO (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Updated NGO Name\",\n  \"description\": \"Updated description\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/ngos/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "NGO_ID_HERE"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete NGO (Admin)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/ngos/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ngos",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "NGO_ID_HERE"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Donations",
+            "item": [
+                {
+                    "name": "Get My Donations",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/donations",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Donations by NGO",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/donations/ngo/:ngoId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations",
+                                "ngo",
+                                ":ngoId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "ngoId",
+                                    "value": "NGO_ID_HERE"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Donation",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"ngoId\": \"NGO_ID_HERE\",\n  \"amount\": 1000,\n  \"paymentMethod\": \"credit-card\",\n  \"message\": \"Keep up the great work!\",\n  \"isAnonymous\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/donations",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Single Donation",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/donations/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "DONATION_ID_HERE"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Donation Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/donations/stats/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations",
+                                "stats",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Donations (Admin)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/donations/admin/all",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "donations",
+                                "admin",
+                                "all"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
