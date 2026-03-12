@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { API_BASE_URL } from '@/lib/api-config'
 
 // Proxy donations API to real backend
 export async function POST(request: NextRequest) {
@@ -6,7 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
 
     // Forward to Express backend
-    const response = await fetch('http://localhost:5001/api/donations', {
+    const response = await fetch(`${API_BASE_URL}/donations`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const response = await fetch('http://localhost:5001/api/donations', {
+    const response = await fetch(`${API_BASE_URL}/donations`, {
       headers: {
         'Authorization': request.headers.get('Authorization') || '',
       },

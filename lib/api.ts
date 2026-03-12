@@ -1,6 +1,6 @@
 // API utility functions for frontend-backend communication
 
-const API_BASE_URL = 'http://localhost:5001/api';
+import { API_BASE_URL } from './api-config';
 
 // Helper function to get auth token
 export const getToken = (): string | null => {

@@ -12,6 +12,7 @@ import { DonationForm } from '@/components/donation-form'
 import { formatAddress } from '@/lib/blockchain-utils'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { API_BASE_URL } from '@/lib/api-config'
 
 function DonateContent() {
   const searchParams = useSearchParams()
@@ -31,7 +32,7 @@ function DonateContent() {
   useEffect(() => {
     const fetchNgos = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/ngos')
+        const res = await fetch(`${API_BASE_URL}/ngos`)
         const data = await res.json()
         if (data.success) {
           setNgos(data.data)

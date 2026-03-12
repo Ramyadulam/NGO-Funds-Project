@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Heart, Mail, Lock, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react'
+import { API_BASE_URL } from '@/lib/api-config'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -19,7 +20,7 @@ export default function LoginPage() {
         setLoading(true)
         setError('')
         try {
-            const res = await fetch("http://localhost:5001/api/auth/login", {
+            const res = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),

@@ -3,6 +3,7 @@
 
 import { useWeb3 } from './web3-context';
 import { formatAddress, formatCurrency, weiToEther } from './blockchain-utils';
+import { API_BASE_URL } from './api-config';
 
 /**
  * Example 1: Simple wallet connection component
@@ -195,7 +196,7 @@ export const completeDonationFlow = async (
 
     // Step 4: Save to backend (optional)
     console.log('Step 4: Saving to backend...');
-    const backendResponse = await fetch('http://localhost:5001/api/donations', {
+    const backendResponse = await fetch(`${API_BASE_URL}/donations`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -217,7 +218,7 @@ export const completeDonationFlow = async (
 
     // Step 6: Update backend with transaction hash
     console.log('Step 6: Updating backend with transaction hash...');
-    await fetch('http://localhost:5001/api/donations/update-hash', {
+    await fetch(`${API_BASE_URL}/donations/update-hash`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
