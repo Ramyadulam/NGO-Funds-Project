@@ -25,7 +25,7 @@ export function WalletConnector() {
         networkName,
         connectWallet,
         disconnectWallet,
-        switchToGanache,
+        switchToSepolia,
     } = useWeb3();
     const [copied, setCopied] = useState(false);
 
@@ -89,9 +89,9 @@ export function WalletConnector() {
                 {!isCorrectNetwork && (
                     <>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={switchToGanache} className="text-amber-600">
+                        <DropdownMenuItem onClick={switchToSepolia} className="text-amber-600">
                             <AlertCircle className="h-4 w-4 mr-2" />
-                            Switch to Ganache
+                            Switch to Sepolia
                         </DropdownMenuItem>
                     </>
                 )}

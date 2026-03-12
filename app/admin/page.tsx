@@ -62,7 +62,7 @@ export default function AdminPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [ngoToDelete, setNgoToDelete] = useState<NGO | null>(null)
   const [submitting, setSubmitting] = useState(false)
-  const { isConnected, registerNGOOnBlockchain, connectWallet, isCorrectNetwork, switchToGanache } = useWeb3()
+  const { isConnected, registerNGOOnBlockchain, connectWallet, isCorrectNetwork, switchToSepolia } = useWeb3()
   const router = useRouter()
 
   useEffect(() => {
@@ -159,7 +159,7 @@ export default function AdminPage() {
           }
 
           if (!isCorrectNetwork) {
-            await switchToGanache()
+            await switchToSepolia()
           }
 
           toast.loading('Registering NGO on blockchain...')

@@ -74,7 +74,7 @@ async function main() {
 
     console.log(`🎉 Deployment complete!\n`);
     console.log("Next steps:");
-    console.log("1. Connect MetaMask to your Ganache network");
+    console.log("1. Connect MetaMask to your deployment network");
     console.log("2. Update your frontend environment variables");
     console.log("3. Start the frontend dev server");
     console.log(`\nNetwork: ${hre.network.name}`);

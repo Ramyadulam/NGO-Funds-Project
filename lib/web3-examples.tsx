@@ -33,7 +33,7 @@ export const makeDonationExample = async () => {
     }
 
     if (!isCorrectNetwork) {
-        throw new Error('Please switch to Ganache network');
+        throw new Error('Please switch to Sepolia network');
     }
 
     try {
@@ -57,7 +57,7 @@ export const registerNGOExample = async () => {
     const { isConnected, isCorrectNetwork, registerNGOOnBlockchain } = useWeb3();
 
     if (!isConnected || !isCorrectNetwork) {
-        throw new Error('Connect wallet and switch to Ganache first');
+        throw new Error('Connect wallet and switch to Sepolia first');
     }
 
     try {
@@ -133,12 +133,12 @@ export const validateDonationExample = (amount: string, message: string) => {
  * Example 7: Handle network switching
  */
 export const switchNetworkExample = async () => {
-    const { isCorrectNetwork, switchToGanache } = useWeb3();
+    const { isCorrectNetwork, switchToSepolia } = useWeb3();
 
     if (!isCorrectNetwork) {
         try {
-            await switchToGanache();
-            console.log('Network switched to Ganache');
+            await switchToSepolia();
+            console.log('Network switched to Sepolia');
         } catch (error) {
             console.error('Failed to switch network:', error);
         }
@@ -158,7 +158,7 @@ export const completeDonationFlow = async (
         isConnected,
         isCorrectNetwork,
         connectWallet,
-        switchToGanache,
+        switchToSepolia,
         donateToNGO,
     } = useWeb3();
 
@@ -168,8 +168,8 @@ export const completeDonationFlow = async (
     }
 
     if (!isCorrectNetwork) {
-        console.log('Step 2: Switching to Ganache...');
-        await switchToGanache();
+        console.log('Step 2: Switching to Sepolia...');
+        await switchToSepolia();
     }
 
     console.log('Step 3: Validating form...');
@@ -253,12 +253,12 @@ export const monitorTransactionExample = async (txHash: string) => {
  * Example 10: Error recovery
  */
 export const errorRecoveryExample = async (error: any) => {
-    const { connectWallet, switchToGanache } = useWeb3();
+    const { connectWallet, switchToSepolia } = useWeb3();
 
     if (error.message.includes('Network')) {
         console.log('Network error detected, trying to switch network...');
         try {
-            await switchToGanache();
+            await switchToSepolia();
         } catch (switchError) {
             console.error('Failed to switch network:', switchError);
         }

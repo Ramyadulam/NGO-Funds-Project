@@ -65,7 +65,7 @@ export default function NGODetailPage() {
         }
     }
 
-    const { isConnected, donateToNGO, connectWallet, isCorrectNetwork, switchToGanache } = useWeb3()
+    const { isConnected, donateToNGO, connectWallet, isCorrectNetwork, switchToSepolia } = useWeb3()
 
     const handleDonate = async () => {
         const token = localStorage.getItem('token')
@@ -83,7 +83,7 @@ export default function NGODetailPage() {
 
         if (!isCorrectNetwork) {
             toast.error('Please switch to the correct network')
-            await switchToGanache()
+            await switchToSepolia()
             return
         }
 

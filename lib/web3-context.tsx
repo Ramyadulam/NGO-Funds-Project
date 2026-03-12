@@ -21,7 +21,7 @@ interface Web3ContextType {
     ngoContract: Contract | null;
     connectWallet: () => Promise<void>;
     disconnectWallet: () => void;
-    switchToGanache: () => Promise<void>;
+    switchToSepolia: () => Promise<void>;
     registerNGOOnBlockchain: (mongoId: string, name: string, walletAddress: string) => Promise<string>;
     donateToNGO: (ngoId: string, amount: string, message: string) => Promise<string>;
     getDonationCount: () => Promise<number>;
@@ -32,12 +32,10 @@ interface Web3ContextType {
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
 
-const GANACHE_CHAIN_ID = 1337;
-const HARDHAT_CHAIN_ID = 31337;
-const VALID_CHAIN_IDS = [GANACHE_CHAIN_ID, HARDHAT_CHAIN_ID];
-const GANACHE_RPC_URL = 'http://127.0.0.1:7545';
-const HARDHAT_RPC_URL = 'http://127.0.0.1:8545';
-const CHAIN_NAME = 'Local Blockchain';
+const SEPOLIA_CHAIN_ID = 11155111;
+const VALID_CHAIN_IDS = [SEPOLIA_CHAIN_ID];
+const SEPOLIA_RPC_URL = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const CHAIN_NAME = 'Sepolia';
 const CURRENCY_NAME = 'ETH';
 const CURRENCY_SYMBOL = 'ETH';
 
@@ -175,57 +173,43 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
         toast.info('Wallet disconnected');
     };
 
-    const switchToGanache = async () => {
+    const switchToSepolia = async () => {
         if (!window.ethereum) {
             toast.error('MetaMask is not installed');
             return;
         }
 
         try {
-            // Try to switch to Hardhat first (most likely what user is using)
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: `0x${HARDHAT_CHAIN_ID.toString(16)}` }],
+                params: [{ chainId: `0x${SEPOLIA_CHAIN_ID.toString(16)}` }],
             });
-            toast.success('Switched to Hardhat network');
+            toast.success('Switched to Sepolia');
         } catch (error: any) {
-            // If Hardhat fail, try Ganache
             if (error.code === 4902) {
                 try {
                     await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: `0x${GANACHE_CHAIN_ID.toString(16)}` }],
+                        method: 'wallet_addEthereumChain',
+                        params: [
+                            {
+                                chainId: `0x${SEPOLIA_CHAIN_ID.toString(16)}`,
+                                chainName: CHAIN_NAME,
+                                nativeCurrency: {
+                                    name: CURRENCY_NAME,
+                                    symbol: CURRENCY_SYMBOL,
+                                    decimals: 18,
+                                },
+                                rpcUrls: [SEPOLIA_RPC_URL],
+                                blockExplorerUrls: ['https://sepolia.etherscan.io'],
+                            },
+                        ],
                     });
-                    toast.success('Switched to Ganache network');
-                } catch (ganacheError: any) {
-                    if (ganacheError.code === 4902) {
-                        // Neither exists, add Hardhat as default
-                        try {
-                            await window.ethereum.request({
-                                method: 'wallet_addEthereumChain',
-                                params: [
-                                    {
-                                        chainId: `0x${HARDHAT_CHAIN_ID.toString(16)}`,
-                                        chainName: 'Hardhat Local',
-                                        nativeCurrency: {
-                                            name: CURRENCY_NAME,
-                                            symbol: CURRENCY_SYMBOL,
-                                            decimals: 18,
-                                        },
-                                        rpcUrls: [HARDHAT_RPC_URL],
-                                    },
-                                ],
-                            });
-                            toast.success('Hardhat network added');
-                        } catch (addError: any) {
-                            toast.error('Failed to add local network');
-                        }
-                    } else {
-                        toast.error('Failed to switch to Ganache network');
-                    }
+                    toast.success('Sepolia network added');
+                } catch (addError: any) {
+                    toast.error(addError?.message || 'Failed to add Sepolia network');
                 }
             } else {
-                toast.error('Failed to switch network');
+                toast.error(error?.message || 'Failed to switch network');
             }
         }
     };
@@ -291,9 +275,8 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
 
     const isConnected = !!account;
     const isCorrectNetwork = chainId !== null && VALID_CHAIN_IDS.includes(chainId);
-    const networkName = chainId === GANACHE_CHAIN_ID ? 'Ganache'
-        : chainId === HARDHAT_CHAIN_ID ? 'Hardhat'
-            : chainId ? `Chain ${chainId}` : 'Unknown';
+    const networkName = chainId === SEPOLIA_CHAIN_ID ? 'Sepolia'
+        : chainId ? `Chain ${chainId}` : 'Unknown';
 
     const value: Web3ContextType = {
         provider,
@@ -306,7 +289,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
         ngoContract,
         connectWallet,
         disconnectWallet,
-        switchToGanache,
+        switchToSepolia,
         registerNGOOnBlockchain,
         donateToNGO,
         getDonationCount,

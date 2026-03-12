@@ -39,7 +39,7 @@ export default function DashboardPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [stats, setStats] = useState<{ totalNGOs: number; totalRaised: number; totalTarget: number } | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
-  const { isConnected, donateToNGO, connectWallet, isCorrectNetwork, switchToGanache } = useWeb3()
+  const { isConnected, donateToNGO, connectWallet, isCorrectNetwork, switchToSepolia } = useWeb3()
   const router = useRouter()
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function DashboardPage() {
 
     if (!isCorrectNetwork) {
       toast.error('Please switch to the correct network')
-      await switchToGanache()
+      await switchToSepolia()
       return
     }
 

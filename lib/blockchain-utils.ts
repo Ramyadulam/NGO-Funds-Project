@@ -56,12 +56,11 @@ export const isValidAddress = (address: string): boolean => {
  */
 export const getBlockExplorerUrl = (
     hash: string,
-    network = 'ganache'
+    network = 'sepolia'
 ): string => {
-    if (network === 'ganache') {
-        return `http://127.0.0.1:7545`; // Ganache doesn't have a block explorer, just localhost
+    if (network === 'sepolia') {
+        return `https://sepolia.etherscan.io/tx/${hash}`;
     }
-    // Add other networks as needed
     return '';
 };
 

@@ -26,7 +26,7 @@ interface SuccessMessage {
 }
 
 export function DonationForm({ ngoId, ngoName }: DonationFormProps) {
-  const { account, isConnected, isCorrectNetwork, donateToNGO, connectWallet, switchToGanache } = useWeb3()
+  const { account, isConnected, isCorrectNetwork, donateToNGO, connectWallet, switchToSepolia } = useWeb3()
   const [formData, setFormData] = useState<FormData>({
     amount: '',
     message: '',
@@ -68,7 +68,7 @@ export function DonationForm({ ngoId, ngoName }: DonationFormProps) {
     }
 
     if (!isCorrectNetwork) {
-      setError('Please switch to Ganache network to donate')
+      setError('Please switch to Sepolia network to donate')
       return
     }
 
@@ -154,12 +154,12 @@ export function DonationForm({ ngoId, ngoName }: DonationFormProps) {
         <Alert className="border-orange-200 bg-orange-50">
           <AlertCircle className="h-4 w-4 text-orange-600" />
           <AlertDescription className="space-y-3">
-            <p className="text-orange-900 font-semibold">Switch to Ganache Network</p>
+            <p className="text-orange-900 font-semibold">Switch to Sepolia Network</p>
             <Button
-              onClick={switchToGanache}
+              onClick={switchToSepolia}
               className="w-full bg-orange-600 hover:bg-orange-700 text-white"
             >
-              Switch to Ganache
+              Switch to Sepolia
             </Button>
           </AlertDescription>
         </Alert>
@@ -224,7 +224,7 @@ export function DonationForm({ ngoId, ngoName }: DonationFormProps) {
           <div className="text-sm text-muted-foreground">
             <p className="font-semibold mb-2">Blockchain Transparency:</p>
             <ul className="space-y-1 text-xs">
-              <li>✓ Your donation is recorded on the Ganache blockchain</li>
+              <li>✓ Your donation is recorded on the Sepolia test network</li>
               <li>✓ The NGO receives funds through a smart contract</li>
               <li>✓ All transactions are immutable and auditable</li>
               <li>✓ You receive a transaction hash as proof</li>

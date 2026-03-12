@@ -85,7 +85,7 @@ function DonateContent() {
                 <p className="text-xs text-green-700 font-mono mt-1">{formatAddress(account as string, 6)}</p>
                 <p className="text-xs text-green-700 mt-2">Network: {networkName}</p>
                 {!isCorrectNetwork && (
-                  <p className="text-xs text-amber-600 mt-2">⚠️ Switch to Ganache network to donate</p>
+                  <p className="text-xs text-amber-600 mt-2">⚠️ Switch to Sepolia network to donate</p>
                 )}
               </div>
             </div>
