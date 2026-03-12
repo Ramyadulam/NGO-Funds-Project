@@ -56,7 +56,7 @@ export function WalletConnector() {
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2">
                     <Wallet className="h-4 w-4" />
-                    {formatAddress(account)}
+                    {formatAddress(account ?? '')}
                     {isCorrectNetwork ? (
                         <CheckCircle2 className="h-4 w-4 text-green-500" />
                     ) : (
@@ -67,7 +67,7 @@ export function WalletConnector() {
             <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel className="flex flex-col gap-1">
                     <span className="text-xs font-normal text-muted-foreground">Connected Account</span>
-                    <span className="font-mono text-sm">{formatAddress(account, 6)}</span>
+                    <span className="font-mono text-sm">{formatAddress(account ?? '', 6)}</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleCopyAddress}>

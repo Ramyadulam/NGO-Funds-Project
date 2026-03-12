@@ -1,4 +1,3 @@
-// lib/web3-examples.ts
 // Examples of how to use the Web3 context and blockchain functions
 
 import { useWeb3 } from './web3-context';
@@ -12,28 +11,23 @@ export const WalletStatus = () => {
     const { account, isConnected, networkName, connectWallet } = useWeb3();
 
     if (!isConnected) {
-        return (
-            <button onClick= { connectWallet } >
-            Connect Wallet
-                </button>
-    );
-  }
+        return <button onClick={connectWallet}>Connect Wallet</button>;
+    }
 
-return (
-    <div>
-    <p>Connected to: { formatAddress(account) } </p>
-        < p > Network: { networkName } </p>
-            </div>
-  );
+    return (
+        <div>
+            <p>Connected to: {formatAddress(account ?? '')}</p>
+            <p>Network: {networkName}</p>
+        </div>
+    );
 };
 
 /**
  * Example 2: Make a donation with error handling
  */
 export const makeDonationExample = async () => {
-    const { account, isConnected, isCorrectNetwork, donateToNGO } = useWeb3();
+    const { isConnected, isCorrectNetwork, donateToNGO } = useWeb3();
 
-    // Validation
     if (!isConnected) {
         throw new Error('Wallet not connected');
     }
@@ -42,7 +36,6 @@ export const makeDonationExample = async () => {
         throw new Error('Please switch to Ganache network');
     }
 
-    // Call blockchain function
     try {
         const transactionHash = await donateToNGO(
             'ngo-id-123',
@@ -69,9 +62,9 @@ export const registerNGOExample = async () => {
 
     try {
         const txHash = await registerNGOOnBlockchain(
-            '507f1f77bcf86cd799439011', // MongoDB ID
+            '507f1f77bcf86cd799439011',
             'Education for All NGO',
-            '0x742d35Cc6634C0532925a3b844Bc9e7595f12345' // NGO wallet
+            '0x742d35Cc6634C0532925a3b844Bc9e7595f12345'
         );
         console.log('NGO registered:', txHash);
         return txHash;
@@ -88,11 +81,9 @@ export const queryBlockchainExample = async () => {
     const { getDonationCount, getNGODetails } = useWeb3();
 
     try {
-        // Get total donations
         const count = await getDonationCount();
         console.log('Total donations:', count);
 
-        // Get NGO details
         const ngo = await getNGODetails('507f1f77bcf86cd799439011');
         console.log('NGO details:', {
             name: ngo.name,
@@ -108,11 +99,9 @@ export const queryBlockchainExample = async () => {
  * Example 5: Format blockchain data for display
  */
 export const displayExample = (amount: string, address: string) => {
-    // Convert Wei to readable ETH
     const ethAmount = weiToEther(amount);
     console.log('Amount:', formatCurrency(ethAmount, 4, 'ETH'));
 
-    // Format address for display
     const shortAddress = formatAddress(address);
     console.log('Address:', shortAddress);
 };
@@ -121,7 +110,6 @@ export const displayExample = (amount: string, address: string) => {
  * Example 6: Validate donation before submitting
  */
 export const validateDonationExample = (amount: string, message: string) => {
-    // Validate amount
     if (!amount || parseFloat(amount) <= 0) {
         return { valid: false, error: 'Invalid amount' };
     }
@@ -130,7 +118,6 @@ export const validateDonationExample = (amount: string, message: string) => {
         return { valid: false, error: 'Minimum donation is 0.01 ETH' };
     }
 
-    // Validate message
     if (!message || message.length === 0) {
         return { valid: false, error: 'Message is required' };
     }
@@ -172,29 +159,25 @@ export const completeDonationFlow = async (
         isCorrectNetwork,
         connectWallet,
         switchToGanache,
-        donateToNGO
+        donateToNGO,
     } = useWeb3();
 
-    // Step 1: Check wallet connection
     if (!isConnected) {
         console.log('Step 1: Connecting wallet...');
         await connectWallet();
     }
 
-    // Step 2: Check network
     if (!isCorrectNetwork) {
         console.log('Step 2: Switching to Ganache...');
         await switchToGanache();
     }
 
-    // Step 3: Validate input
     console.log('Step 3: Validating form...');
     const validation = validateDonationExample(amount, message);
     if (!validation.valid) {
         throw new Error(validation.error);
     }
 
-    // Step 4: Save to backend (optional)
     console.log('Step 4: Saving to backend...');
     const backendResponse = await fetch(`${API_BASE_URL}/donations`, {
         method: 'POST',
@@ -204,7 +187,7 @@ export const completeDonationFlow = async (
             amount,
             message,
             donorAddress: account,
-            transactionHash: '', // Will be updated after blockchain tx
+            transactionHash: '',
         }),
     });
 
@@ -212,11 +195,9 @@ export const completeDonationFlow = async (
         throw new Error('Failed to save donation to backend');
     }
 
-    // Step 5: Execute blockchain transaction
     console.log('Step 5: Processing blockchain transaction...');
     const txHash = await donateToNGO(ngoId, amount, message);
 
-    // Step 6: Update backend with transaction hash
     console.log('Step 6: Updating backend with transaction hash...');
     await fetch(`${API_BASE_URL}/donations/update-hash`, {
         method: 'POST',
@@ -242,10 +223,9 @@ export const monitorTransactionExample = async (txHash: string) => {
         throw new Error('Provider not initialized');
     }
 
-    // Poll for receipt
     let receipt = null;
     let attempts = 0;
-    const maxAttempts = 30; // 30 seconds
+    const maxAttempts = 30;
 
     while (!receipt && attempts < maxAttempts) {
         try {
@@ -262,8 +242,7 @@ export const monitorTransactionExample = async (txHash: string) => {
             console.error('Error checking receipt:', error);
         }
 
-        // Wait 1 second before retrying
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         attempts++;
     }
 
